@@ -32,5 +32,15 @@ namespace sgi_app_v1.application.services
         {
             _repo.Add(cliente);
         }
+
+        public void Update(ClienteDto cliente)
+        {
+            _repo.Update(cliente);
+        }
+
+        public void Delete(string id)
+        {
+            _repo.Delete(id);
+        }
     }   
 }

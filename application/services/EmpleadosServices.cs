@@ -31,7 +31,7 @@ namespace sgi_app_v1.application.services
             _repo.Update(empleado);
         } 
 
-        public void Delete(int id){
+        public void Delete(string id){
             _repo.Delete(id);
         }
     }

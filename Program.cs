@@ -1,6 +1,7 @@
 ﻿using System;
-using MiAppConsola.ui;
+using System.IO;
 using Microsoft.Extensions.Configuration;
+using MiAppConsola.ui;
 using sgi_app.application.services;
 using sgi_app.domain.factory;
 using sgi_app.infrastructure.mysql;
@@ -13,8 +14,11 @@ namespace MiAppConsola
     {
         static void Main(string[] args)
         {
+            // Ruta a la raíz del proyecto (3 carpetas arriba desde bin/Debug/net8.0)
+            var basePath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", ".."));
+
             var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+                .SetBasePath(basePath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
 
@@ -28,23 +32,26 @@ namespace MiAppConsola
 
             var connectionString = $"Server={server};Port={port};Database={database};User={user};Password={password};";
 
-
             Console.WriteLine("Cadena de conexión generada:");
             Console.WriteLine(connectionString);
+
             IDbFactory factory = new mysqlDbFactory(connectionString);
 
+            var proveedorService = new ProveedorService(factory.CrearProveedorRepository());
+            var DtoClienteService = new DClienteService(factory.CrearDClienteRepository());
+            var empleadoService = new EmpleadosServices(factory.CrearEmpleadoRepository());
 
-           var conec = new mysqlDbFactory(connectionString);
-           
-            var service = new ProveedorService(conec.CrearProveedorRepository());
-            var service2 = new EmpleadosServices(conec.CrearEmpleadoRepository());
-            //Para solo ejecurat el servicio de ProveedorService
-            var ui = new ProveedorConsoleUI(service);
-            var uiempleado = new EmpleadoConsoleUI(service2);
-            //ui.Ejecutar();
-            uiempleado.Ejecutar();
 
-             
+            var proveedorUI = new ProveedorConsoleUI(proveedorService);
+            var empleadoUI = new EmpleadoConsoleUI(empleadoService);
+
+            var empleadoDto = new DClienteConsoleUi(DtoClienteService);
+
+            empleadoDto.Ejecutar();
+
+            // Ejecutar la UI deseada
+            // proveedorUI.Ejecutar();
+
         }
     }
 }

@@ -36,7 +36,7 @@ namespace sgi_app.application.services
             _repo.Update(proveedor);
         }
 
-        public void Delete(int id)
+        public void Delete(string id)
         {
             _repo.Delete(id);
         }

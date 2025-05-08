@@ -1,5 +1,7 @@
 ﻿using System;
+using MiAppConsola.ui;
 using Microsoft.Extensions.Configuration;
+using sgi_app.application.services;
 using sgi_app.domain.factory;
 using sgi_app.infrastructure.mysql;
 
@@ -30,13 +32,13 @@ namespace MiAppConsola
             IDbFactory factory = new mysqlDbFactory(connectionString);
 
 
-            // var conec = new mysqlDbFactory(connectionString);
+            var conec = new mysqlDbFactory(connectionString);
            
-            // var service = new ProveedorService(conec.CrearProveedorRepository());
+            var service = new ProveedorService(conec.CrearProveedorRepository());
 
             // //Para solo ejecurat el servicio de ProveedorService
-            // var ui = new ProveedorConsoleUI(service);
-            // ui.Ejecutar();
+            var ui = new ProveedorConsoleUI(service);
+            ui.Ejecutar();
 
              
         }

@@ -75,7 +75,7 @@ namespace sgi_app.infrastructure.repositories
                 command.ExecuteNonQuery();
             }
         }
-        public void Delete(int id)
+        public void Delete(string id)
         {
             var connec = _conexion.ObtenerConexion();
             string query = "DELETE FROM Proveedor WHERE id = @id";

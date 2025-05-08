@@ -84,7 +84,7 @@ namespace sgi_app_v1.infrastructure.repositories
             }
         }
 
-    public void Delete(string id)
+    public void Delete(int id)
     {
             var connec = _conexion.ObtenerConexion();
             string query = "DELETE FROM Empleado WHERE id = @id";

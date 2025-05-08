@@ -79,7 +79,7 @@ namespace sgi_app_v1.application.ui
         private void EliminarEmpleado()
         {
             Console.Write("Ingrese el id del cliente a eliminar: ");
-            string id = Console.ReadLine();
+            int id = Convert.ToInt32(Console.ReadLine());
 
             _services.Delete(id);
             Console.WriteLine("Proveedor eliminado correctamente.");

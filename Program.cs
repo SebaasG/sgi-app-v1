@@ -40,17 +40,19 @@ namespace MiAppConsola
             var proveedorService = new ProveedorService(factory.CrearProveedorRepository());
             var DtoClienteService = new DClienteService(factory.CrearDClienteRepository());
             var empleadoService = new EmpleadosServices(factory.CrearEmpleadoRepository());
-
+            var service3 = new ProductosService(factory.CrearProductoRepository());
 
             var proveedorUI = new ProveedorConsoleUI(proveedorService);
             var empleadoUI = new EmpleadoConsoleUI(empleadoService);
 
             var empleadoDto = new DClienteConsoleUi(DtoClienteService);
+            var uiproductos = new ProductoConsoleUI(service3);
 
-            empleadoDto.Ejecutar();
+            //empleadoDto.Ejecutar();
 
             // Ejecutar la UI deseada
             // proveedorUI.Ejecutar();
+            uiproductos.Ejecutar();
 
         }
     }

@@ -33,6 +33,11 @@ namespace sgi_app.infrastructure.mysql
             return new DClienteRepository(_connectionString);
 
         }
+          public IProductoRepository CrearProductoRepository()
+        {
+            return new ProductoRepository(_connectionString);
+        }
+
 
         public MySqlConnection ObtenerConexion()
         {

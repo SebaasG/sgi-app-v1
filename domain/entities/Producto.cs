@@ -7,14 +7,14 @@ namespace sgi_app.domain.entities
 {
     public class Producto
     {
-        public string Id { get; set; }
-        public string Nombre { get; set; }
+        public string? Id { get; set; }
+        public string? Nombre { get; set; }
         public int Stock { get; set; }
         public int StockMin { get; set; }
         public int StockMax { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdateAt { get; set; }
-        public string harCode { get; set; }
+        public string? harCode { get; set; }
 
     }
 }

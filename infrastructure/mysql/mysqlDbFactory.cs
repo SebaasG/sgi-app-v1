@@ -23,9 +23,15 @@ namespace sgi_app.infrastructure.mysql
            return new ProveedorRepository(_connectionString);
         }
 
+<<<<<<< HEAD
          public IEmpleadosRepository CrearEmpleadoRepository()
         {
            return new EmpleadoRepository(_connectionString);
+=======
+        public IDClienteRepository CrearDClienteRepository()
+        {
+            return new DClienteRepository(_connectionString);
+>>>>>>> 15f7714 (feat: :bug: Solucion de mala implementacion de la interface en el servicio)
         }
 
         public MySqlConnection ObtenerConexion()

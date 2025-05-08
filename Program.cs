@@ -37,12 +37,21 @@ namespace MiAppConsola
            var conec = new mysqlDbFactory(connectionString);
            
             var service = new ProveedorService(conec.CrearProveedorRepository());
+<<<<<<< HEAD
             var service2 = new EmpleadosServices(conec.CrearEmpleadoRepository());
             //Para solo ejecurat el servicio de ProveedorService
             var ui = new ProveedorConsoleUI(service);
             var uiempleado = new EmpleadoConsoleUI(service2);
             //ui.Ejecutar();
             uiempleado.Ejecutar();
+=======
+            var service3 = new DClienteService(conec.CrearDClienteRepository());
+
+            // //Para solo ejecurat el servicio de ProveedorService
+            var ui = new ProveedorConsoleUI(service);
+            var ui2 = new DClienteConsoleUi(service2);
+            ui2.Ejecutar();
+>>>>>>> 15f7714 (feat: :bug: Solucion de mala implementacion de la interface en el servicio)
 
              
         }

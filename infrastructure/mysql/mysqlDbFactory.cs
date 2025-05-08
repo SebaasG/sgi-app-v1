@@ -28,6 +28,12 @@ namespace sgi_app.infrastructure.mysql
            return new EmpleadoRepository(_connectionString);
         }
 
+        public IDClienteRepository CrearDClienteRepository()
+        {
+            return new DClienteRepository(_connectionString);
+
+        }
+
         public MySqlConnection ObtenerConexion()
         {
             return ConexionSingleton.Instancia(_connectionString).ObtenerConexion();

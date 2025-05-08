@@ -90,7 +90,7 @@ namespace MiAppConsola.ui
         private void EliminarProveedor()
         {
             Console.Write("Ingrese el id del proveedor a eliminar: ");
-            int id = Convert.ToInt32(Console.ReadLine());
+            string id = Console.ReadLine();
 
             _service.Delete(id);
             Console.WriteLine("Proveedor eliminado correctamente.");

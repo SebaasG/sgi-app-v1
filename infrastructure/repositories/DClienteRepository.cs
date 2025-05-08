@@ -25,7 +25,7 @@ namespace sgi_app_v1.infrastructure.repositories
         {
             var clientes = new List<ClienteDto>();
             var connec = _conexion.ObtenerConexion();
-            var query = "SELECT t.id AS tercero_id,t.nombre,t.apellidos,t.email,t.tipo_doc_id,t.tipo_tercero_id,t.ciudad_id,c.id AS cliente_id,c.fecha_nac,c.fecha_ultima_compra FROM terceros t INNER JOIN cliente c ON c.tercero_id = t.id;";
+            var query = "SELECT t.id AS tercero_id,t.nombre,t.apellidos,t.email,t.tipo_doc_id,t.tipo_tercero_id,t.ciudad_id,c.id AS cliente_id,c.fecha_nac,c.fecha_ultima_compra FROM terceros t INNER JOIN Cliente c ON c.tercero_id = t.id;";
             using (var command = new MySqlCommand(query, connec))
             {
                 using (var reader = command.ExecuteReader())
@@ -74,11 +74,31 @@ namespace sgi_app_v1.infrastructure.repositories
         }
         public void Update(ClienteDto entity)
         {
-        
+            var connec = _conexion.ObtenerConexion();
+            string query = "CALL actualizar_tercero_cliente(@id, @nombre, @apellidos, @email, @tipo_doc_id, @tipo_tercero_id, @ciudad_id, @fecha_nac, @fecha_ultima_compra)";
+            using (var command = new MySqlCommand(query, connec))
+            {
+                command.Parameters.AddWithValue("@id", entity.Id);
+                command.Parameters.AddWithValue("@nombre", entity.Nombre);
+                command.Parameters.AddWithValue("@apellidos", entity.Apellidos);
+                command.Parameters.AddWithValue("@email", entity.Email);
+                command.Parameters.AddWithValue("@tipo_doc_id", entity.TipoDoc);
+                command.Parameters.AddWithValue("@tipo_tercero_id", entity.TipoTercero);
+                command.Parameters.AddWithValue("@ciudad_id", entity.CiudadId);
+                command.Parameters.AddWithValue("@fecha_nac", entity.FechaNac);
+                command.Parameters.AddWithValue("@fecha_ultima_compra", entity.FechaUCompra);
+                command.ExecuteNonQuery();
+            }
         }
-        public void Delete(int id)
+        public void Delete(string tercero_id)
         {
-       
+            var connec = _conexion.ObtenerConexion();
+            string query = "delete from Cliente where tercero_id = @tercero_id";
+            using (var command = new MySqlCommand(query, connec))
+            {
+                command.Parameters.AddWithValue("@tercero_id", tercero_id);
+                command.ExecuteNonQuery();
+            }
         }
 
     }

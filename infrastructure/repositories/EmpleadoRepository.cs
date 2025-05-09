@@ -17,72 +17,116 @@ namespace sgi_app_v1.infrastructure.repositories
             _conexion = ConexionSingleton.Instancia(connectionString);
         }
 
-        public List<Empleado> GetAll()
-        {
-            var empleados = new List<Empleado>();
-            var connec = _conexion.ObtenerConexion();
+       public List<Empleado> GetAll()
+{
+    var empleados = new List<Empleado>();
+    var connec = _conexion.ObtenerConexion();
 
-            string query = "SELECT * FROM Empleado";
-            using (var command = new MySqlCommand(query, connec))
+    string query = @"
+        SELECT e.id AS empleado_id, e.fecha_ingreso, e.salario_base, e.eps_id, e.arl_id,
+               t.id AS tercero_id, t.nombre, t.apellidos, t.email, 
+               t.tipo_doc_id, t.tipo_tercero_id, t.ciudad_id
+        FROM Empleado e
+        INNER JOIN terceros t ON e.tercero_id = t.id";
+
+    using (var command = new MySqlCommand(query, connec))
+    {
+        using (var reader = command.ExecuteReader())
+        {
+            while (reader.Read())
             {
-                using (var reader = command.ExecuteReader())
+                var empleado = new Empleado()
                 {
-                    while (reader.Read())
-                    {
-                        var empleado = new Empleado()
-                        {
-                            Id = reader.GetInt32("id"),
-                            TerceroId = reader.GetString("tercero_id"),
-                            FechaIngreso = reader.GetDateTime("fecha_ingreso"),
-                            SalarioBase = reader.GetDouble("salario_base"),
-                            EpsId = reader.GetInt32("eps_id"),
-                            ArlId = reader.GetInt32("arl_id")
-                        };
-                        empleados.Add(empleado);
-                    }
-                }
+                    Id = reader.GetInt32("empleado_id"),
+                    Id_Tercero = reader.GetString("tercero_id"),
+                    Nombre = reader.GetString("nombre"),
+                    Apellidos = reader.GetString("apellidos"),
+                    Email = reader.GetString("email"),
+                    TipoDoc = reader.GetInt32("tipo_doc_id"),
+                    TipoTercero = reader.GetInt32("tipo_tercero_id"),
+                    CiudadId = reader.GetInt32("ciudad_id"),
+                    FechaIngreso = reader.GetDateTime("fecha_ingreso"),
+                    SalarioBase = reader.GetDouble("salario_base"),
+                    EpsId = reader.GetInt32("eps_id"),
+                    ArlId = reader.GetInt32("arl_id")
+                };
+                empleados.Add(empleado);
             }
-            return empleados;
         }
+    }
+    return empleados;
+}
 
-        public void Add(Empleado entity)
 
+public void Add(Empleado entity)
+{
+    var connec = _conexion.ObtenerConexion();
+    string query = "CALL insertar_tercero_y_empleado(@id, @nombre, @apellidos, @email, @tipo_doc_id, @tipo_tercero_id, @ciudad_id, @fecha_ingreso, @salario_base, @eps_id, @arl_id)";
+    
+    using (var command = new MySqlCommand(query, connec))
+    {
+        command.Parameters.AddWithValue("@id", entity.Id_Tercero);
+        command.Parameters.AddWithValue("@nombre", entity.Nombre);
+        command.Parameters.AddWithValue("@apellidos", entity.Apellidos);
+        command.Parameters.AddWithValue("@email", entity.Email);
+        command.Parameters.AddWithValue("@tipo_doc_id", entity.TipoDoc);
+        command.Parameters.AddWithValue("@tipo_tercero_id", entity.TipoTercero);
+        command.Parameters.AddWithValue("@ciudad_id", entity.CiudadId);
+        command.Parameters.AddWithValue("@fecha_ingreso", entity.FechaIngreso);
+        command.Parameters.AddWithValue("@salario_base", entity.SalarioBase);
+        command.Parameters.AddWithValue("@eps_id", entity.EpsId);
+        command.Parameters.AddWithValue("@arl_id", entity.ArlId);
+
+        command.ExecuteNonQuery();
+    }
+}
+
+public void Update(Empleado entity)
+{
+    try
+    {
+        // Obtener la conexión a la base de datos
+        var connec = _conexion.ObtenerConexion();
+        
+        // Definir la consulta SQL para actualizar tanto el tercero como el empleado
+        string query = "CALL actualizar_tercero_y_empleado(@id, @nombre, @apellidos, @email, @tipo_doc_id, @tipo_tercero_id, @ciudad_id, @fecha_ingreso, @salario_base, @eps_id, @arl_id)";
+        
+        // Usar el comando para ejecutar la consulta
+        using (var command = new MySqlCommand(query, connec))
         {
-
-            try {
-
-                var connec = _conexion.ObtenerConexion();
-            string query = "INSERT INTO Empleado (tercero_id, fecha_ingreso, salario_base, eps_id, arl_id) VALUES (@tercero_id, @fecha_ingreso, @salario_base, @eps_id, @arl_id)";
-            using (var command = new MySqlCommand(query, connec))
-            {
-                command.Parameters.AddWithValue("@tercero_id", entity.TerceroId);
-                command.Parameters.AddWithValue("@fecha_ingreso", entity.FechaIngreso);
-                command.Parameters.AddWithValue("@salario_base", entity.SalarioBase);
-                command.Parameters.AddWithValue("@eps_id", entity.EpsId);
-                command.Parameters.AddWithValue("@arl_id", entity.ArlId);
-                command.ExecuteNonQuery();
-            }
-
-            }catch( MySqlException e){
-                Console.WriteLine("error",e);
-            }
+            // Agregar los parámetros a la consulta
+            command.Parameters.AddWithValue("id", entity.Id_Tercero);
+            command.Parameters.AddWithValue("@nombre", entity.Nombre);
+            command.Parameters.AddWithValue("@apellidos", entity.Apellidos);
+            command.Parameters.AddWithValue("@email", entity.Email);
+            command.Parameters.AddWithValue("@tipo_doc_id", entity.TipoDoc);
+            command.Parameters.AddWithValue("@tipo_tercero_id", entity.TipoTercero);
+            command.Parameters.AddWithValue("@ciudad_id", entity.CiudadId);
+            command.Parameters.AddWithValue("@fecha_ingreso", entity.FechaIngreso);
+            command.Parameters.AddWithValue("@salario_base", entity.SalarioBase);
+            command.Parameters.AddWithValue("@eps_id", entity.EpsId);
+            command.Parameters.AddWithValue("@arl_id", entity.ArlId);
+            
+            // Ejecutar la consulta
+            command.ExecuteNonQuery();
         }
 
-        public void Update(Empleado entity)
-        {
-            var connec = _conexion.ObtenerConexion();
-            string query = "UPDATE Empleado SET tercero_id = @tercero_id,  fecha_ingreso = @fecha_ingreso, salario_base = @salario_base, eps_id = @eps_id,  arl_id = @arl_id WHERE id = @id";
-            using (var command = new MySqlCommand(query, connec))
-            {
-                command.Parameters.AddWithValue("@id", entity.Id);
-                command.Parameters.AddWithValue("@tercero_id", entity.TerceroId);
-                command.Parameters.AddWithValue("@fecha_ingreso", entity.FechaIngreso);
-                command.Parameters.AddWithValue("@salario_base", entity.SalarioBase);
-                command.Parameters.AddWithValue("@eps_id", entity.EpsId);
-                command.Parameters.AddWithValue("@arl_id", entity.ArlId);
-                command.ExecuteNonQuery();
-            }
-        }
+        // Confirmación de que la actualización fue exitosa
+        Console.WriteLine("Empleado actualizado correctamente.");
+    }
+    catch (MySqlException ex)
+    {
+        // Manejo de excepciones relacionadas con la base de datos
+        Console.WriteLine($"Error al actualizar el empleado: {ex.Message}");
+    }
+    catch (Exception ex)
+    {
+        // Manejo de cualquier otro tipo de error
+        Console.WriteLine($"Error inesperado: {ex.Message}");
+    }
+}
+
+
 
     public void Delete(string id)
     {

@@ -20,7 +20,9 @@ namespace sgi_app_v1.application.services
             var empleados = _repo.GetAll();
             foreach(var Empleado in empleados){
                 Console.WriteLine("Empleados :");
-                Console.WriteLine($"id: {Empleado.Id} ,  terceroID: {Empleado.TerceroId} , Fechaingreso: {Empleado.FechaIngreso} , salarioBase: {Empleado.SalarioBase}, EpsID: {Empleado.EpsId}, ArlID:{Empleado.ArlId}");
+                Console.WriteLine($"Id: {Empleado.Id}, nombre: {Empleado.Nombre}, apellidos: {Empleado.Apellidos}" +
+                    $", email: {Empleado.Email}, tipoDoc: {Empleado.TipoDoc}, TipoTercero: {Empleado.TipoTercero}" +
+                    $", ciudad: {Empleado.CiudadId}, Fecha_Ingreso: {Empleado.FechaIngreso} , SalarioBase: {Empleado.SalarioBase}, EPSId: {Empleado.EpsId}, ArlId: {Empleado.ArlId}" );
             }
         }
         public void Add(Empleado empleado){

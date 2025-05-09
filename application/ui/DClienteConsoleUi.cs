@@ -18,11 +18,17 @@ namespace sgi_app_v1.application.ui
         }
         public void Ejecutar()
         {
-            Console.WriteLine("1. Mostrar todos los clientes");
-            Console.WriteLine("2. Crear un nuevo cliente");
-            Console.WriteLine("3. Actualizar un cliente");
-            Console.WriteLine("4. Eliminar un cliente");
-            Console.WriteLine("5. Salir");
+            Console.Clear();
+
+            Console.WriteLine("╔══════════════════════════════════════╗");
+            Console.WriteLine("║         ✨ MENÚ PRINCIPAL ✨        ║");
+            Console.WriteLine("╠══════════════════════════════════════╣");
+            Console.WriteLine("║ 1️⃣  Mostrar todos los clientes      ║");
+            Console.WriteLine("║ 2️⃣  Crear un nuevo cliente          ║");
+            Console.WriteLine("║ 3️⃣  Actualizar un cliente           ║");
+            Console.WriteLine("║ 4️⃣ Eliminar un cliente              ║");
+            Console.WriteLine("║ 5️⃣  Salir                           ║");
+            Console.WriteLine("╚══════════════════════════════════════╝");
             Console.Write("Seleccione una opción: ");
             string opcion = Console.ReadLine();
 

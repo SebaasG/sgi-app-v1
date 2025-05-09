@@ -40,17 +40,62 @@ namespace MiAppConsola
             var proveedorService = new ProveedorService(factory.CrearProveedorRepository());
             var DtoClienteService = new DClienteService(factory.CrearDClienteRepository());
             var empleadoService = new EmpleadosServices(factory.CrearEmpleadoRepository());
-
+            var service3 = new ProductosService(factory.CrearProductoRepository());
 
             var proveedorUI = new ProveedorConsoleUI(proveedorService);
             var empleadoUI = new EmpleadoConsoleUI(empleadoService);
 
             var empleadoDto = new DClienteConsoleUi(DtoClienteService);
+            var uiproductos = new ProductoConsoleUI(service3);
 
-            empleadoDto.Ejecutar();
+            
+             string opcion = "";
 
-            // Ejecutar la UI deseada
-            // proveedorUI.Ejecutar();
+                    while (opcion != "5")
+                    {
+                        Console.Clear();
+                        Console.WriteLine("╔══════════════════════════════════════╗");
+                        Console.WriteLine("║         ✨ MENÚ PRINCIPAL ✨          ║");
+                        Console.WriteLine("╠══════════════════════════════════════╣");
+                        Console.WriteLine("║ 1️⃣  Gestión de Empleados            ║");
+                        Console.WriteLine("║ 2️⃣  Gestión de Proveedores          ║");
+                        Console.WriteLine("║ 3️⃣  Gestión de Productos            ║");
+                        Console.WriteLine("║ 4️⃣  Gestión de Clientes             ║");
+                        Console.WriteLine("║ 5️⃣  Salir                           ║");
+                        Console.WriteLine("╚══════════════════════════════════════╝");
+                        Console.ResetColor();
+                        Console.Write("Seleccione una opción: ");
+                        opcion = Console.ReadLine();
+
+                        switch (opcion)
+                        {
+                            case "1":
+                                empleadoDto.Ejecutar();
+                                break;
+                            case "2":
+                                proveedorUI.Ejecutar();
+                                break;
+                            case "3":
+                                uiproductos.Ejecutar();
+                                break;
+                            case "4":
+                                empleadoUI.Ejecutar();
+                                break;
+                            case "5":
+                                Console.WriteLine("👋 ¡Hasta pronto!");
+                                break;
+                            default:
+                                Console.WriteLine("⚠️  Opción no válida.");
+                                break;
+                        }
+
+                        if (opcion != "5")
+                        {
+                            Console.WriteLine("\nPresione una tecla para volver al menú...");
+                            Console.ReadKey();
+                        }
+                    }
+
 
         }
     }

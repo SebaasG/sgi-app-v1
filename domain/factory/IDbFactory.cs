@@ -13,6 +13,7 @@ namespace sgi_app.domain.factory
         IProveedorRepository CrearProveedorRepository();
         IEmpleadosRepository CrearEmpleadoRepository();
         IDClienteRepository CrearDClienteRepository();
+        IProductoRepository CrearProductoRepository();
 
     }
 }

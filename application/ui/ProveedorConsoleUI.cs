@@ -17,7 +17,7 @@ namespace MiAppConsola.ui
         {
             Console.Clear();
             Console.WriteLine("╔══════════════════════════════════════╗");
-            Console.WriteLine("║         ✨ MENÚ PRINCIPAL ✨        ║");
+            Console.WriteLine("║         ✨ MENÚ Proveedores ✨        ║");
             Console.WriteLine("╠══════════════════════════════════════╣");
             Console.WriteLine("║ 1️⃣  Mostrar todos los proveedores    ║");
             Console.WriteLine("║ 2️⃣  Crear un nuevo proveedor         ║");

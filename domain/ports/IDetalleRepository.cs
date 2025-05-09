@@ -6,10 +6,10 @@ using sgi_app_v1.domain.entities;
 
 namespace sgi_app_v1.domain.ports
 {
-    public interface IVentaRepository <Venta>
+    public interface IDetalleRepository <DetalleVenta>
     {
-        List<Venta> GetAll();
-        void Add(Venta entity);
+        List<DetalleVenta> GetAll();
+        void Add(DetalleVenta entity);
         void getById(int id);
     }
 }

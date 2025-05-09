@@ -55,13 +55,14 @@ namespace MiAppConsola
                     {
                         Console.Clear();
                         Console.WriteLine("╔══════════════════════════════════════╗");
-                        Console.WriteLine("║         ✨ MENÚ PRINCIPAL ✨          ║");
+                        Console.WriteLine("║         ✨ MENÚ PRINCIPAL ✨         ║");
                         Console.WriteLine("╠══════════════════════════════════════╣");
-                        Console.WriteLine("║ 1️⃣  Gestión de Empleados            ║");
-                        Console.WriteLine("║ 2️⃣  Gestión de Proveedores          ║");
-                        Console.WriteLine("║ 3️⃣  Gestión de Productos            ║");
-                        Console.WriteLine("║ 4️⃣  Gestión de Clientes             ║");
-                        Console.WriteLine("║ 5️⃣  Salir                           ║");
+                        Console.WriteLine("║ 1️⃣  Gestión de Empleados              ║");
+                        Console.WriteLine("║ 2️⃣  Gestión de Proveedores            ║");
+                        Console.WriteLine("║ 3️⃣  Gestión de Productos              ║");
+                        Console.WriteLine("║ 4️⃣  Gestión de Clientes               ║");
+                        Console.WriteLine("║ 5️⃣  Gestión Ventas                    ║");
+                        Console.WriteLine("║ 6  Salir                             ║");
                         Console.WriteLine("╚══════════════════════════════════════╝");
                         Console.ResetColor();
                         Console.Write("Seleccione una opción: ");
@@ -82,6 +83,9 @@ namespace MiAppConsola
                                 ClienteDto.Ejecutar();
                                 break;
                             case "5":
+                                Console.WriteLine("⚠️  Funcionalidad no implementada.");
+                                break;
+                            case "6":
                                 Console.WriteLine("👋 ¡Hasta pronto!");
                                 break;
                             default:

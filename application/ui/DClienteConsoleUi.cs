@@ -21,7 +21,7 @@ namespace sgi_app_v1.application.ui
             Console.Clear();
 
             Console.WriteLine("╔══════════════════════════════════════╗");
-            Console.WriteLine("║         ✨ MENÚ PRINCIPAL ✨        ║");
+            Console.WriteLine("║         ✨ MENÚ Clientes ✨        ║");
             Console.WriteLine("╠══════════════════════════════════════╣");
             Console.WriteLine("║ 1️⃣  Mostrar todos los clientes      ║");
             Console.WriteLine("║ 2️⃣  Crear un nuevo cliente          ║");

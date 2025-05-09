@@ -20,7 +20,7 @@ namespace sgi_app_v1.application.ui
     public void Ejecutar (){
         Console.Clear();
         Console.WriteLine("╔══════════════════════════════════════╗");
-        Console.WriteLine("║         ✨ MENÚ PRINCIPAL ✨        ║");
+        Console.WriteLine("║         ✨ MENÚ Productos ✨        ║");
         Console.WriteLine("╠══════════════════════════════════════╣");
         Console.WriteLine("║ 1️⃣  Mostrar todos los Productos      ║");
         Console.WriteLine("║ 2️⃣  Crear un nuevo Producto          ║");

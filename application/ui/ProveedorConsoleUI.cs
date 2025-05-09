@@ -15,11 +15,16 @@ namespace MiAppConsola.ui
 
         public void Ejecutar()
         {
-            Console.WriteLine("1. Mostrar todos los proveedores");
-            Console.WriteLine("2. Crear un nuevo proveedor");
-            Console.WriteLine("3. Actualizar un proveedor");
-            Console.WriteLine("4. Eliminar un proveedor");
-            Console.WriteLine("5. Salir");
+            Console.Clear();
+            Console.WriteLine("╔══════════════════════════════════════╗");
+            Console.WriteLine("║         ✨ MENÚ PRINCIPAL ✨        ║");
+            Console.WriteLine("╠══════════════════════════════════════╣");
+            Console.WriteLine("║ 1️⃣  Mostrar todos los proveedores    ║");
+            Console.WriteLine("║ 2️⃣  Crear un nuevo proveedor         ║");
+            Console.WriteLine("║ 3️⃣  Actualizar un proveedor          ║");
+            Console.WriteLine("║ 4️⃣  Eliminar un proveedor          ║");
+            Console.WriteLine("║ 5️⃣  Salir                            ║");
+            Console.WriteLine("╚══════════════════════════════════════╝");
             Console.Write("Seleccione una opción: ");
             string opcion = Console.ReadLine();
 

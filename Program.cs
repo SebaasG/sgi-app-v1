@@ -45,7 +45,7 @@ namespace MiAppConsola
             var proveedorUI = new ProveedorConsoleUI(proveedorService);
             var empleadoUI = new EmpleadoConsoleUI(empleadoService);
 
-            var empleadoDto = new DClienteConsoleUi(DtoClienteService);
+            var ClienteDto = new DClienteConsoleUi(DtoClienteService);
             var uiproductos = new ProductoConsoleUI(service3);
 
             
@@ -70,7 +70,7 @@ namespace MiAppConsola
                         switch (opcion)
                         {
                             case "1":
-                                empleadoDto.Ejecutar();
+                                empleadoUI.Ejecutar();
                                 break;
                             case "2":
                                 proveedorUI.Ejecutar();
@@ -79,7 +79,7 @@ namespace MiAppConsola
                                 uiproductos.Ejecutar();
                                 break;
                             case "4":
-                                empleadoUI.Ejecutar();
+                                ClienteDto.Ejecutar();
                                 break;
                             case "5":
                                 Console.WriteLine("👋 ¡Hasta pronto!");

@@ -81,29 +81,51 @@ public void Add(Empleado entity)
     }
 }
 
-        public void Update(Empleado entity)
+public void Update(Empleado entity)
 {
-    var connec = _conexion.ObtenerConexion();
-    string query = "CALL actualizar_tercero_y_empleado(@id, @tercero_id, @nombre, @apellidos, @email, @tipo_doc_id, @tipo_tercero_id, @ciudad_id, @fecha_ingreso, @salario_base, @eps_id, @arl_id)";
-    
-    using (var command = new MySqlCommand(query, connec))
+    try
     {
-        command.Parameters.AddWithValue("@id", entity.Id);
-        command.Parameters.AddWithValue("@tercero_id", entity.Id_Tercero);
-        command.Parameters.AddWithValue("@nombre", entity.Nombre);
-        command.Parameters.AddWithValue("@apellidos", entity.Apellidos);
-        command.Parameters.AddWithValue("@email", entity.Email);
-        command.Parameters.AddWithValue("@tipo_doc_id", entity.TipoDoc);
-        command.Parameters.AddWithValue("@tipo_tercero_id", entity.TipoTercero);
-        command.Parameters.AddWithValue("@ciudad_id", entity.CiudadId);
-        command.Parameters.AddWithValue("@fecha_ingreso", entity.FechaIngreso);
-        command.Parameters.AddWithValue("@salario_base", entity.SalarioBase);
-        command.Parameters.AddWithValue("@eps_id", entity.EpsId);
-        command.Parameters.AddWithValue("@arl_id", entity.ArlId);
+        // Obtener la conexión a la base de datos
+        var connec = _conexion.ObtenerConexion();
+        
+        // Definir la consulta SQL para actualizar tanto el tercero como el empleado
+        string query = "CALL actualizar_tercero_y_empleado(@id, @nombre, @apellidos, @email, @tipo_doc_id, @tipo_tercero_id, @ciudad_id, @fecha_ingreso, @salario_base, @eps_id, @arl_id)";
+        
+        // Usar el comando para ejecutar la consulta
+        using (var command = new MySqlCommand(query, connec))
+        {
+            // Agregar los parámetros a la consulta
+            command.Parameters.AddWithValue("id", entity.Id_Tercero);
+            command.Parameters.AddWithValue("@nombre", entity.Nombre);
+            command.Parameters.AddWithValue("@apellidos", entity.Apellidos);
+            command.Parameters.AddWithValue("@email", entity.Email);
+            command.Parameters.AddWithValue("@tipo_doc_id", entity.TipoDoc);
+            command.Parameters.AddWithValue("@tipo_tercero_id", entity.TipoTercero);
+            command.Parameters.AddWithValue("@ciudad_id", entity.CiudadId);
+            command.Parameters.AddWithValue("@fecha_ingreso", entity.FechaIngreso);
+            command.Parameters.AddWithValue("@salario_base", entity.SalarioBase);
+            command.Parameters.AddWithValue("@eps_id", entity.EpsId);
+            command.Parameters.AddWithValue("@arl_id", entity.ArlId);
+            
+            // Ejecutar la consulta
+            command.ExecuteNonQuery();
+        }
 
-        command.ExecuteNonQuery();
+        // Confirmación de que la actualización fue exitosa
+        Console.WriteLine("Empleado actualizado correctamente.");
+    }
+    catch (MySqlException ex)
+    {
+        // Manejo de excepciones relacionadas con la base de datos
+        Console.WriteLine($"Error al actualizar el empleado: {ex.Message}");
+    }
+    catch (Exception ex)
+    {
+        // Manejo de cualquier otro tipo de error
+        Console.WriteLine($"Error inesperado: {ex.Message}");
     }
 }
+
 
 
     public void Delete(string id)

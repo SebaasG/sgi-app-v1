@@ -82,8 +82,8 @@ namespace sgi_app_v1.application.ui
             Console.Write("Ingrese la ciudad: ");
             empleado.CiudadId = Convert.ToInt32(Console.ReadLine());
 
-            Console.Write("Fecha de ingreso: ");
-            empleado.FechaIngreso = Convert.ToDateTime(Console.ReadLine());
+            
+            empleado.FechaIngreso = DateTime.Now;
 
             Console.WriteLine("Salario Base: ");
             empleado.SalarioBase = Convert.ToDouble(Console.ReadLine());
@@ -113,11 +113,29 @@ namespace sgi_app_v1.application.ui
         {
             var empleado = new Empleado();
 
-            Console.Write("Ingrese el id del proveedor a actualizar: ");
-            empleado.Id = Convert.ToInt32(Console.ReadLine());
+           Console.Write("Ingrese el id del tercero: ");
+            empleado.Id_Tercero = Console.ReadLine();
 
-            Console.Write("Fecha de ingreso: ");
-            empleado.FechaIngreso = Convert.ToDateTime(Console.ReadLine());
+            Console.Write("Ingrese el nombre: ");
+            empleado.Nombre = Console.ReadLine();
+
+            Console.Write("Ingrese los apellidos: ");
+            empleado.Apellidos = Console.ReadLine();
+
+            Console.Write("Ingrese el email: ");
+            empleado.Email = Console.ReadLine();
+
+            Console.Write("Ingrese el tipo de documento: ");
+            empleado.TipoDoc =Convert.ToInt32(Console.ReadLine()) ;
+
+            Console.Write("Ingrese el tipo de tercero: ");
+            empleado.TipoTercero =Convert.ToInt32(Console.ReadLine()) ;
+
+            Console.Write("Ingrese la ciudad: ");
+            empleado.CiudadId = Convert.ToInt32(Console.ReadLine());
+
+           
+            empleado.FechaIngreso = DateTime.Now;
 
             Console.WriteLine("Salario Base: ");
             empleado.SalarioBase = Convert.ToDouble(Console.ReadLine());
@@ -128,8 +146,9 @@ namespace sgi_app_v1.application.ui
             Console.WriteLine("Ingrerse ARL: ");
             empleado.ArlId = Convert.ToInt32(Console.ReadLine());
 
+
             _services.Update(empleado);
-            Console.WriteLine("Proveedor actualizado correctamente.");
+            Console.WriteLine("empleado actualizado correctamente.");
         }
 
 

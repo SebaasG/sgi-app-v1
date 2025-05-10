@@ -364,6 +364,44 @@ CREATE PROCEDURE insertar_compra_y_detalle (
     ->     VALUES (last_compra_id, p_fecha_detalle, p_producto_id, p_cantidad, p_valor);
     -> END$$
 
+
+
+DELIMITER //
+
+CREATE PROCEDURE sp_ActualizarCompra(
+    IN p_id INT,
+    IN p_tercero_prov_id VARCHAR(20),
+    IN p_fecha DATE,
+    IN p_tercero_empl_id VARCHAR(20),
+    IN p_desc_compra TEXT,
+    IN p_detalle_fecha DATE,
+    IN p_producto_id VARCHAR(20),
+    IN p_cantidad INT,
+    IN p_valor DOUBLE
+)
+BEGIN
+    -- Actualiza tabla Compras
+    UPDATE Compras
+    SET 
+        tercero_prov_id = p_tercero_prov_id,
+        fecha = p_fecha,
+        tercero_empl_id = p_tercero_empl_id,
+        desc_compra = p_desc_compra
+    WHERE id = p_id;
+
+    -- Actualiza tabla Detalle_Compra
+    UPDATE Detalle_Compra
+    SET
+        fecha = p_detalle_fecha,
+        producto_id = p_producto_id,
+        cantidad = p_cantidad,
+        valor = p_valor
+    WHERE compra_id = p_id;
+END //
+
+DELIMITER ;
+
+
 ```
 
 # Inserts

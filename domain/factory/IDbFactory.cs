@@ -14,6 +14,7 @@ namespace sgi_app.domain.factory
         IEmpleadosRepository CrearEmpleadoRepository();
         IDClienteRepository CrearDClienteRepository();
         IProductoRepository CrearProductoRepository();
+        IComprasRepository CrearComprasRepository();
 
     }
 }

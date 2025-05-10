@@ -23,6 +23,7 @@ namespace sgi_app_v1.application.ui
             Console.WriteLine("╠══════════════════════════════════════╣");
             Console.WriteLine("║ 1️⃣  Mostrar todos las compras       ║");
             Console.WriteLine("║ 2️⃣  Crear un nuevo compras          ║");
+            Console.WriteLine("║ 3️⃣  Actualizar un Compras           ║");
             Console.WriteLine("║ 5️⃣  Salir                           ║");
             Console.WriteLine("╚══════════════════════════════════════╝");
             Console.Write("Seleccione una opción: ");
@@ -37,7 +38,7 @@ namespace sgi_app_v1.application.ui
                     CrearCompra();
                     break;
                 case "3":
-                    
+                    ActualizarCompras();
                     break;
                 case "4":
                     
@@ -100,41 +101,46 @@ namespace sgi_app_v1.application.ui
             Console.WriteLine("Compra eliminada correctamente.");
         }
 
-        public void Update( ){
-            var compra = new Compras();
+        public void ActualizarCompras()
+{
+    var compra = new Compras();
 
-            Console.WriteLine("=== Actualizar Compra ===");
-            Console.Write("ID de la Compra: ");
-            compra.CompraId = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("=== Actualizar Compra ===");
 
-            Console.Write("Proveedor ID: ");
-            compra.IdProveedor = Console.ReadLine();
+    Console.Write("ID de la Compra: ");
+    compra.CompraId = Convert.ToInt32(Console.ReadLine());
 
-            Console.Write("Empleado ID: ");
-            compra.IdEmpleado = Console.ReadLine();
+    Console.Write("Proveedor ID: ");
+    compra.IdProveedor = Console.ReadLine();
 
-            Console.Write("Fecha de Compra (yyyy-MM-dd): ");
-            compra.FechaCompra = DateTime.Parse(Console.ReadLine());
+    Console.Write("Empleado ID: ");
+    compra.IdEmpleado = Console.ReadLine();
 
-            Console.Write("Descripción: ");
-            compra.DescripcionCompra = Console.ReadLine();
+    Console.Write("Fecha de Compra (yyyy-MM-dd): ");
+    compra.FechaCompra = DateTime.Parse(Console.ReadLine());
 
-            Console.WriteLine("--- Detalle de la Compra ---");
-            Console.Write("Fecha del Detalle (yyyy-MM-dd): ");
-           compra.FechaDetalle = DateTime.Parse(Console.ReadLine());
+    Console.Write("Descripción: ");
+    compra.DescripcionCompra = Console.ReadLine();
 
-            Console.Write("Producto ID: ");
-            compra.ProductoId = Console.ReadLine();
+    Console.WriteLine("--- Detalle de la Compra ---");
 
-            Console.Write("Cantidad: ");
-            compra.Cantidad = int.Parse(Console.ReadLine());
+    Console.Write("Fecha del Detalle (yyyy-MM-dd): ");
+    compra.FechaDetalle = DateTime.Parse(Console.ReadLine());
 
-            Console.Write("Valor: ");
-            compra.Valor = double.Parse(Console.ReadLine());
+    Console.Write("Producto ID: ");
+    compra.ProductoId = Console.ReadLine();
 
-             _service.Update(compra);
-             Console.WriteLine("Compra actualizada correctamente.");
-        }
+    Console.Write("Cantidad: ");
+    compra.Cantidad = int.Parse(Console.ReadLine());
+
+    Console.Write("Valor: ");
+    compra.Valor = double.Parse(Console.ReadLine());
+
+    _service.Update(compra);
+
+    Console.WriteLine("✅ Compra actualizada correctamente.");
+}
+
 
     }
 }

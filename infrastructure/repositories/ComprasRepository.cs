@@ -90,7 +90,7 @@ public void Add(Compras entity)
 public void Update(Compras entity)
 {
     var connec = _conexion.ObtenerConexion();
-    string query = "CALL actualizar_compra_y_detalle(@p_compra_id, @p_proveedor_id, @p_empleado_id, @p_fecha_compra, @p_descripcion, @p_fecha_detalle, @p_producto_id, @p_cantidad, @p_valor)";
+    string query = "CALL  sp_ActualizarCompra(@p_compra_id, @p_proveedor_id, @p_fecha_compra, @p_empleado_id, @p_descripcion, @p_fecha_detalle, @p_producto_id, @p_cantidad, @p_valor)";
 
     using (var command = new MySqlCommand(query, connec))
     {

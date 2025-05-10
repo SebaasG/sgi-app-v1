@@ -364,4 +364,136 @@ CREATE PROCEDURE insertar_compra_y_detalle (
     ->     VALUES (last_compra_id, p_fecha_detalle, p_producto_id, p_cantidad, p_valor);
     -> END$$
 
+
+
+DELIMITER //
+
+CREATE PROCEDURE sp_ActualizarCompra(
+    IN p_id INT,
+    IN p_tercero_prov_id VARCHAR(20),
+    IN p_fecha DATE,
+    IN p_tercero_empl_id VARCHAR(20),
+    IN p_desc_compra TEXT,
+    IN p_detalle_fecha DATE,
+    IN p_producto_id VARCHAR(20),
+    IN p_cantidad INT,
+    IN p_valor DOUBLE
+)
+BEGIN
+    -- Actualiza tabla Compras
+    UPDATE Compras
+    SET 
+        tercero_prov_id = p_tercero_prov_id,
+        fecha = p_fecha,
+        tercero_empl_id = p_tercero_empl_id,
+        desc_compra = p_desc_compra
+    WHERE id = p_id;
+
+    -- Actualiza tabla Detalle_Compra
+    UPDATE Detalle_Compra
+    SET
+        fecha = p_detalle_fecha,
+        producto_id = p_producto_id,
+        cantidad = p_cantidad,
+        valor = p_valor
+    WHERE compra_id = p_id;
+END //
+
+DELIMITER ;
+
+
+```
+
+# Inserts
+
+```sql
+-- País
+INSERT INTO Pais (nombre) VALUES ('Colombia');
+
+-- Región
+INSERT INTO Region (nombre, pais_id) VALUES ('Santander', 1);
+
+-- Ciudad
+INSERT INTO Ciudad (nombre, region_id) VALUES ('Bucaramanga', 1);
+
+-- Tipos de documentos
+INSERT INTO tipo_documentos (descripcion) VALUES ('Cédula de ciudadanía');
+
+-- Tipos de terceros
+INSERT INTO tipo_terceros (descripcion) VALUES ('Cliente');
+
+-- Terceros
+INSERT INTO terceros (id, nombre, apellidos, email, tipo_doc_id, tipo_tercero_id, ciudad_id)
+VALUES ('1234567890', 'Juan', 'Pérez', 'juan.perez@example.com', 1, 1, 1);
+
+-- Teléfonos de terceros
+INSERT INTO tercero_telefonos (numero, tipo, tercero_id) 
+VALUES ('3001234567', 'Celular', '1234567890');
+
+-- Empresa
+INSERT INTO Empresa (id, nombre, ciudad_id, fecha_reg) 
+VALUES ('EMP001', 'Empresa S.A.S.', 1, '2024-01-01');
+
+-- EPS
+INSERT INTO EPS (nombre) VALUES ('Nueva EPS');
+
+-- ARL
+INSERT INTO ARL (nombre) VALUES ('ARL Sura');
+
+-- Empleado
+INSERT INTO Empleado (tercero_id, fecha_ingreso, salario_base, eps_id, arl_id) 
+VALUES ('1234567890', '2024-02-01', 2000000, 1, 1);
+
+-- Cliente
+INSERT INTO Cliente (tercero_id, fecha_nac, fecha_ultima_compra) 
+VALUES ('1234567890', '1990-05-10', '2024-05-01');
+
+-- Proveedor
+INSERT INTO Proveedor (tercero_id, dcto, dia_pago) 
+VALUES ('1234567890', 5.0, 15);
+
+-- Productos
+INSERT INTO Productos (id, nombre, stock, stock_min, stock_max, created_at, updated_at, barcode)
+VALUES ('PROD001', 'Mouse inalámbrico', 100, 10, 200, '2024-04-01', '2024-05-01', 'ABC123456');
+
+-- Productos_Proveedor
+INSERT INTO Productos_Proveedor (producto_id, tercero_id) 
+VALUES ('PROD001', '1234567890');
+
+-- Compras
+INSERT INTO Compras (tercero_prov_id, fecha, tercero_empl_id, desc_compra) 
+VALUES ('1234567890', '2024-05-01', '1234567890', 'Compra de periféricos');
+
+-- Detalle_Compra
+INSERT INTO Detalle_Compra (fecha, producto_id, cantidad, valor, compra_id)
+VALUES ('2024-05-01', 'PROD001', 50, 25000, 1);
+
+-- Venta
+INSERT INTO Venta (fecha, tercero_cli_id, tercero_emp_id, forma_pago)
+VALUES ('2024-05-05', '1234567890', '1234567890', 'Efectivo');
+
+-- Detalle_Venta
+INSERT INTO Detalle_Venta (factura_id, producto_id, cantidad, valor) 
+VALUES (1, 'PROD001', 2, 30000);
+
+-- Facturación
+INSERT INTO Facturacion (fecha_resolucion, num_inicio, num_final, fact_actual)
+VALUES ('2024-01-01', 1000, 2000, 1001);
+
+-- Tipo de movimientos de caja
+INSERT INTO tipo_mov_caja (nombre, tipo) 
+VALUES ('Ingreso por ventas', 'entrada');
+
+-- Movimientos de caja
+INSERT INTO Mov_Caja (fecha, tipo_mov_id, valor, concepto, tercero_id)
+VALUES ('2024-05-05', 1, 60000, 'Venta de productos', '1234567890');
+
+-- Planes
+INSERT INTO Planes (nombre, fecha_ini, fecha_fin, dcto)
+VALUES ('Descuento Primavera', '2024-04-01', '2024-06-01', 10.0);
+
+-- Plan_Producto
+INSERT INTO Plan_Producto (plan_id, producto_id)
+VALUES (1, 'PROD001');
+
 ```

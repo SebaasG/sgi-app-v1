@@ -36,7 +36,10 @@ namespace sgi_app.infrastructure.mysql
         {
             return new ProductoRepository(_connectionString);
         }
-
+        public IComprasRepository CrearComprasRepository()
+        {
+            return new ComprasRepository(_connectionString);
+        }
 
 
         public MySqlConnection ObtenerConexion()

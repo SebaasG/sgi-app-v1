@@ -16,5 +16,7 @@ namespace sgi_app.domain.factory
         IProductoRepository CrearProductoRepository();
         IComprasRepository CrearComprasRepository();
 
+        IVentaDto CrearVentaRepository();
+
     }
 }

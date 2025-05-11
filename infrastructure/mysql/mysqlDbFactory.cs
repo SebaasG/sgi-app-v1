@@ -2,13 +2,14 @@ using MySql.Data.MySqlClient;
 using sgi_app.domain.factory;
 using sgi_app.domain.ports;
 using sgi_app.infrastructure.repositories;
+using sgi_app_v1.domain.dto;
 using sgi_app_v1.domain.ports;
 using sgi_app_v1.infrastructure.repositories;
 
 
 namespace sgi_app.infrastructure.mysql
 {
-    public class mysqlDbFactory : IDbFactory
+    public class mysqlDbFactory : IDbFactory               
     {
         private readonly string _connectionString;
 
@@ -40,6 +41,13 @@ namespace sgi_app.infrastructure.mysql
         {
             return new ComprasRepository(_connectionString);
         }
+
+        public IVentaDto CrearVentaRepository()
+        {
+            return new ventasRepository(_connectionString);
+        }
+
+
 
 
         public MySqlConnection ObtenerConexion()

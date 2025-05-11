@@ -60,14 +60,35 @@ namespace MiAppConsola.ui
         {
             var proveedor = new Proveedor();
 
+            // Validación simple para el ID del tercero
             Console.Write("Ingrese el id del tercero: ");
-            proveedor.TerceroId =Console.ReadLine();
+            proveedor.TerceroId = Console.ReadLine();
 
+            // Validación para el descuento
             Console.Write("Ingrese el descuento: ");
-            proveedor.Dcto = Convert.ToDouble(Console.ReadLine());
+            string dctoInput = Console.ReadLine();
+            if (double.TryParse(dctoInput, out double descuento))
+            {
+                proveedor.Dcto = descuento;
+            }
+            else
+            {
+                Console.WriteLine("Descuento no válido, se asignará 0.");
+                proveedor.Dcto = 0;
+            }
 
+            // Validación para el día de pago
             Console.Write("Ingrese el día de pago: ");
-            proveedor.DiaPago = Convert.ToInt32(Console.ReadLine());
+            string diaPagoInput = Console.ReadLine();
+            if (int.TryParse(diaPagoInput, out int diaPago) && diaPago > 0 && diaPago <= 31)
+            {
+                proveedor.DiaPago = diaPago;
+            }
+            else
+            {
+                Console.WriteLine("Día de pago no válido, se asignará 1.");
+                proveedor.DiaPago = 1;
+            }
 
             _service.Add(proveedor);
             Console.WriteLine("Proveedor agregado correctamente.");
@@ -77,28 +98,67 @@ namespace MiAppConsola.ui
         {
             var proveedor = new Proveedor();
 
+            // Validación simple para el ID del proveedor
             Console.Write("Ingrese el id del proveedor a actualizar: ");
-            proveedor.Id = Convert.ToInt32(Console.ReadLine());
+            string idInput = Console.ReadLine();
+            if (int.TryParse(idInput, out int id) && id > 0)
+            {
+                proveedor.Id = id;
+            }
+            else
+            {
+                Console.WriteLine("ID no válido.");
+                return;
+            }
 
+            // Validación para el ID del tercero
             Console.Write("Ingrese el nuevo id del tercero: ");
             proveedor.TerceroId = Console.ReadLine();
 
+            // Validación para el descuento
             Console.Write("Ingrese el nuevo descuento: ");
-            proveedor.Dcto = Convert.ToDouble(Console.ReadLine());
+            string dctoInput = Console.ReadLine();
+            if (double.TryParse(dctoInput, out double descuento))
+            {
+                proveedor.Dcto = descuento;
+            }
+            else
+            {
+                Console.WriteLine("Descuento no válido, se asignará 0.");
+                proveedor.Dcto = 0;
+            }
 
+            // Validación para el día de pago
             Console.Write("Ingrese el nuevo día de pago: ");
-            proveedor.DiaPago = Convert.ToInt32(Console.ReadLine());
+            string diaPagoInput = Console.ReadLine();
+            if (int.TryParse(diaPagoInput, out int diaPago) && diaPago > 0 && diaPago <= 31)
+            {
+                proveedor.DiaPago = diaPago;
+            }
+            else
+            {
+                Console.WriteLine("Día de pago no válido, se asignará 1.");
+                proveedor.DiaPago = 1;
+            }
 
             _service.Update(proveedor);
             Console.WriteLine("Proveedor actualizado correctamente.");
         }
+
         private void EliminarProveedor()
         {
+            // Validación para el ID del proveedor
             Console.Write("Ingrese el id del proveedor a eliminar: ");
-            string id = Console.ReadLine();
-
-            _service.Delete(id);
-            Console.WriteLine("Proveedor eliminado correctamente.");
-         }
-}
+            string idInput = Console.ReadLine();
+            if (int.TryParse(idInput, out int id) && id > 0)
+            {
+                _service.Delete(id.ToString());
+                Console.WriteLine("Proveedor eliminado correctamente.");
+            }
+            else
+            {
+                Console.WriteLine("ID no válido.");
+            }
+        }
+    }
 }

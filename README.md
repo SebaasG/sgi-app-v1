@@ -402,6 +402,44 @@ END //
 DELIMITER ;
 
 
+DELIMITER $$
+
+CREATE PROCEDURE RegistrarVenta (
+    IN p_fecha DATE,
+    IN p_cliente VARCHAR(20),
+    IN p_empleado VARCHAR(20),
+    IN p_forma_pago VARCHAR(50),
+    IN p_detalles JSON
+)
+BEGIN
+    DECLARE v_venta_id INT;
+
+    -- Insertar la venta
+    INSERT INTO Venta (fecha, tercero_cli_id, tercero_emp_id, forma_pago)
+    VALUES (p_fecha, p_cliente, p_empleado, p_forma_pago);
+
+    SET v_venta_id = LAST_INSERT_ID();
+
+    -- Insertar los detalles usando JSON_TABLE
+    INSERT INTO Detalle_Venta (factura_id, producto_id, cantidad, valor)
+    SELECT 
+        v_venta_id,
+        detalle.producto_id,
+        detalle.cantidad,
+        detalle.valor
+    FROM JSON_TABLE(
+        p_detalles,
+        '$[*]' COLUMNS (
+            producto_id VARCHAR(20) PATH '$.productoId',
+            cantidad INT PATH '$.cantidad',
+            valor DOUBLE PATH '$.valor'
+        )
+    ) AS detalle;
+END$$
+
+DELIMITER ;
+
+
 ```
 
 # Inserts

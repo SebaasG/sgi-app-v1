@@ -46,27 +46,8 @@ namespace sgi_app_v1.infrastructure.repositories
 
         public List<VentaDto> GetById(int id)
         {
-            var ventas = new List<VentaDto>();
-            using var connec = _conexion.ObtenerConexion();
-            string query = "SELECT * FROM Venta WHERE id = @id";
-            using var cmd = new MySqlCommand(query, connec);
-            cmd.Parameters.AddWithValue("@id", id);
-            using (var reader = cmd.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    var venta = new VentaDto
-                    {
-                        Id = reader.GetInt32("id"),
-                        Fecha = reader.GetDateTime("fecha"),
-                        TerceroClienteId = reader.GetString("tercero_cli_id"),
-                        TerceroEmpleadoId = reader.GetString("tercero_emp_id"),
-                        FormaPago = reader.GetString("forma_pago")
-                    };
-                    ventas.Add(venta);
-                }
-            }
-            return ventas;
+            // Puede implementarse si necesitas ver venta + detalles.
+            return new List<VentaDto>();
         }
 
        public async Task<bool> Add(VentaDto venta)
@@ -80,7 +61,7 @@ namespace sgi_app_v1.infrastructure.repositories
 
         using var command = new MySqlCommand("RegistrarVenta", connection);
         command.CommandType = CommandType.StoredProcedure;
-
+        // Convertimos los detalles a JSON manualmente
         string detallesJson = System.Text.Json.JsonSerializer.Serialize(
             venta.Detalles.Select(d => new {
                 productoId = d.ProductoId,

@@ -79,20 +79,35 @@ namespace sgi_app_v1.application.ui
             // Recopilamos la información básica de la venta.
             Console.Write("Cliente ID: ");
             venta.TerceroClienteId = Console.ReadLine();
+            while (string.IsNullOrWhiteSpace(venta.TerceroClienteId)) // Validación
+            {
+                Console.Write("Cliente ID es obligatorio. Ingrese nuevamente: ");
+                venta.TerceroClienteId = Console.ReadLine();
+            }
 
             Console.Write("Empleado ID: ");
             venta.TerceroEmpleadoId = Console.ReadLine();
+            while (string.IsNullOrWhiteSpace(venta.TerceroEmpleadoId)) // Validación
+            {
+                Console.Write("Empleado ID es obligatorio. Ingrese nuevamente: ");
+                venta.TerceroEmpleadoId = Console.ReadLine();
+            }
 
             Console.Write("Fecha de Venta (yyyy-MM-dd): ");
-            if (!DateTime.TryParse(Console.ReadLine(), out DateTime fecha))
+            DateTime fecha;
+            while (!DateTime.TryParse(Console.ReadLine(), out fecha)) // Validación
             {
-                Console.WriteLine("Fecha no válida. Intenta nuevamente.");
-                return;
+                Console.Write("Fecha no válida. Intenta nuevamente (yyyy-MM-dd): ");
             }
             venta.Fecha = fecha;
 
             Console.Write("Forma de Pago: ");
             venta.FormaPago = Console.ReadLine();
+            while (string.IsNullOrWhiteSpace(venta.FormaPago)) // Validación
+            {
+                Console.Write("Forma de pago es obligatoria. Ingrese nuevamente: ");
+                venta.FormaPago = Console.ReadLine();
+            }
 
             // Ahora, vamos a agregar los detalles a la venta.
             bool agregarDetalles = true;
@@ -103,45 +118,50 @@ namespace sgi_app_v1.application.ui
                 Console.WriteLine("--- Detalle de la Venta ---");
                 Console.Write("Producto ID: ");
                 detalle.ProductoId = Console.ReadLine();
+                while (string.IsNullOrWhiteSpace(detalle.ProductoId)) // Validación
+                {
+                    Console.Write("Producto ID es obligatorio. Ingrese nuevamente: ");
+                    detalle.ProductoId = Console.ReadLine();
+                }
 
                 Console.Write("Cantidad: ");
-                if (!int.TryParse(Console.ReadLine(), out int cantidad))
+                int cantidad;
+                while (!int.TryParse(Console.ReadLine(), out cantidad) || cantidad <= 0) // Validación
                 {
-                    Console.WriteLine("Cantidad no válida.");
-                    continue; // Continuamos al siguiente ciclo si la cantidad es incorrecta
+                    Console.Write("Cantidad no válida o menor a 1. Ingrese nuevamente: ");
                 }
                 detalle.Cantidad = cantidad;
 
                 Console.Write("Valor: ");
-                if (!double.TryParse(Console.ReadLine(), out double valor))
+                double valor;
+                while (!double.TryParse(Console.ReadLine(), out valor) || valor <= 0) // Validación
                 {
-                    Console.WriteLine("Valor no válido.");
-                    continue; // Continuamos al siguiente ciclo si el valor es incorrecto
+                    Console.Write("Valor no válido o menor a 1. Ingrese nuevamente: ");
                 }
                 detalle.Valor = valor;
 
-                // Agregamos el detalle a la lista de detalles de la venta
                 venta.Detalles.Add(detalle);
 
-                // Preguntar si quiere agregar otro detalle
                 Console.Write("¿Desea agregar otro detalle? (s/n): ");
                 string respuesta = Console.ReadLine();
                 if (respuesta.ToLower() != "s")
                 {
-                    agregarDetalles = false; // Salimos del ciclo si la respuesta no es 's'
+                    agregarDetalles = false;
                 }
             }
 
-            // Llamamos al servicio para agregar la venta con sus detalles
             _service.Add(venta);
             Console.WriteLine("Venta realizada correctamente.");
         }
 
-
         private void MostrarVentaPorId()
         {
             Console.Write("Ingrese el ID de la venta: ");
-            int id = Convert.ToInt32(Console.ReadLine());
+            int id;
+            while (!int.TryParse(Console.ReadLine(), out id) || id <= 0) 
+            {
+                Console.Write("ID no válido. Ingrese nuevamente: ");
+            }
 
             var ventas = _service.GetById(id);
 

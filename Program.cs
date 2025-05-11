@@ -42,12 +42,15 @@ namespace MiAppConsola
             var empleadoService = new EmpleadosServices(factory.CrearEmpleadoRepository());
             var service3 = new ProductosService(factory.CrearProductoRepository());
             var compraService = new CompraServices(factory.CrearComprasRepository());
+            var ventaService = new VentaService(factory.CrearVentaRepository());
 
             var proveedorUI = new ProveedorConsoleUI(proveedorService);
             var empleadoUI = new EmpleadoConsoleUI(empleadoService);
             var ClienteDto = new DClienteConsoleUi(DtoClienteService);
             var uiproductos = new ProductoConsoleUI(service3);
             var comprasUI = new ComprasConsoleUI(compraService);
+            var ventasUI = new VentasConsoleUI(ventaService);
+
 
 
 
@@ -65,7 +68,8 @@ namespace MiAppConsola
                         Console.WriteLine("║ 3️⃣  Gestión de Productos            ║");
                         Console.WriteLine("║ 4️⃣  Gestión de Clientes             ║");
                         Console.WriteLine("║ 5️⃣ Compras y Detalles              ║");
-                        Console.WriteLine("║ 6    Salir                           ║");
+                        Console.WriteLine("║ 6   Venta y Detalles                 ║");
+                        Console.WriteLine("║ 7    Salir                           ║");
                         Console.WriteLine("╚══════════════════════════════════════╝");
                         Console.ResetColor();
                         Console.Write("Seleccione una opción: ");
@@ -89,14 +93,18 @@ namespace MiAppConsola
                                 comprasUI.Ejecutar();
                                 break;
                             case "6":
+                                 ventasUI.Ejecutar();
+                                break;
+                            case "7":
                                 Console.WriteLine("👋 ¡Hasta pronto!");
                                 break;
                             default:
+
                                 Console.WriteLine("⚠️  Opción no válida.");
                                 break;
                         }
 
-                        if (opcion != "6")
+                        if (opcion != "7")
                         {
                             Console.WriteLine("\nPresione una tecla para volver al menú...");
                             Console.ReadKey();

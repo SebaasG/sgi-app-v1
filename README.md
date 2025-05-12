@@ -338,33 +338,35 @@ END $$
 
 DELIMITER ;
 
+DELIMITER $$
+
 CREATE PROCEDURE insertar_compra_y_detalle (
-    ->     IN p_proveedor_id VARCHAR(50),
-    ->     IN p_empleado_id VARCHAR(50),
-    ->     IN p_fecha_compra DATE,
-    ->     IN p_descripcion VARCHAR(255),
-    ->
-    ->     IN p_fecha_detalle DATE,
-    ->     IN p_producto_id VARCHAR(50),
-    ->     IN p_cantidad INT,
-    ->     IN p_valor DECIMAL(10,2)
-    -> )
-    -> BEGIN
-    ->     DECLARE last_compra_id INT;
-    ->
-    ->     -- Insertar en la tabla compras (usando los nombres correctos de columnas)
-    ->     INSERT INTO compras (tercero_prov_id, tercero_empl_id, fecha, desc_compra)
-    ->     VALUES (p_proveedor_id, p_empleado_id, p_fecha_compra, p_descripcion);
-    ->
-    ->     -- Obtener el ID de la compra recién insertada
-    ->     SET last_compra_id = LAST_INSERT_ID();
-    ->
-    ->     -- Insertar en la tabla detalle_compra
-    ->     INSERT INTO detalle_compra (compra_id, fecha, producto_id, cantidad, valor)
-    ->     VALUES (last_compra_id, p_fecha_detalle, p_producto_id, p_cantidad, p_valor);
-    -> END$$
+       IN p_proveedor_id VARCHAR(50),
+         IN p_empleado_id VARCHAR(50),
+       IN p_fecha_compra DATE,
+        IN p_descripcion VARCHAR(255),
+   
+        IN p_fecha_detalle DATE,
+         IN p_producto_id VARCHAR(50),
+         IN p_cantidad INT,
+         IN p_valor DECIMAL(10,2)
+    )
+   BEGIN
+         DECLARE last_compra_id INT;
+    
+         -- Insertar en la tabla compras (usando los nombres correctos de columnas)
+      INSERT INTO compras (tercero_prov_id, tercero_empl_id, fecha, desc_compra)
+        VALUES (p_proveedor_id, p_empleado_id, p_fecha_compra, p_descripcion);
+   
+       -- Obtener el ID de la compra recién insertada
+        SET last_compra_id = LAST_INSERT_ID();
+    
+        -- Insertar en la tabla detalle_compra
+       INSERT INTO detalle_compra (compra_id, fecha, producto_id, cantidad, valor)
+       VALUES (last_compra_id, p_fecha_detalle, p_producto_id, p_cantidad, p_valor);
+     END$$
 
-
+DELIMITER ;
 
 DELIMITER //
 

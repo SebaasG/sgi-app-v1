@@ -57,7 +57,7 @@ namespace MiAppConsola
             
              string opcion = "";
 
-                    while (opcion != "5")
+                    while (opcion != "7")
                     {
                         Console.Clear();
                         Console.WriteLine("╔══════════════════════════════════════╗");
